@@ -12,7 +12,21 @@ nightmare
   .wait('#mainPanel')
   .evaluate(() => {
     /* eslint-disable */
-    // 选择按钮：
+    Date.prototype.Format = function (fmt) { //author: meizz
+      var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "H+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+      };
+      if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+      for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+      return fmt;
+    };
     function findButtonbyTextContent(text) {
       var buttons = document.querySelectorAll('button');
       for (var i=0, l=buttons.length; i<l; i++) {
@@ -21,32 +35,64 @@ nightmare
       }
     }
     function randText() {
-      return Math.random().toString(36).substr(2)
+      return Math.random().toString(36).substr(2);
+    }
+    function logWithTime(text) {
+      console.log(new Date().Format("yyyy-MM-dd HH:mm:ss"), text);
+    }
+    logWithTime('处理开始');
+    var southPanel = view.findById('southPanel');
+
+    function handle() {
+      var win = document.querySelector('#downAnsWindow');
+      if (win && win.style.visibility === 'visible') {
+        logWithTime('应答对话框出现')
+        // 选择问题：
+        southPanel.downAnsListGrid.getSelectionModel().selectFirstRow();
+        // 点击回答问题按钮：
+        findButtonbyTextContent('回答问题').click();
+        // 填答案:
+        var answer = randText();
+        document.querySelector('textarea[name="answer"]').value = answer;
+        // 点击确定按钮:
+        findButtonbyTextContent('确定').click();
+        // 关闭窗口：
+        setTimeout(() => {
+          logWithTime('答应消息:' + answer)
+          Ext.WindowMgr.getActive().close();
+        }, 1000);
+      }
     }
 
-    var southPanel = view.findById('southPanel');
-    southPanel.datas['downAns'].push({
-      platType:1,
-      surperPlateformName: '上峰指令',
-      objectType: 1,
-      objectTypeName: '222', recordContent: '干吗呢',
-      objectId: '22222',
-      stamp: Date.now()
-    });
-    southPanel.showWindow('downAns');
+    setInterval(handle, 2000);
+
+    //var southPanel = view.findById('southPanel');
+    //southPanel.datas['downAns'].push({
+    //  platType:1,
+    //  surperPlateformName: '上峰指令',
+    //  objectType: 1,
+    //  objectTypeName: '222', recordContent: '干吗呢',
+    //  objectId: '22222',
+    //  stamp: Date.now()
+    //});
+    //southPanel.showWindow('downAns');
+
+
     // 选择问题：
-    southPanel.downAnsListGrid.getSelectionModel().selectFirstRow();
-    // 点击回答问题按钮：
-    findButtonbyTextContent('回答问题').click();
-    // 填答案:
-    document.querySelector('textarea[name="answer"]').value = randText();
-    // 点击确定按钮:
-    findButtonbyTextContent('确定').click();
-    // 关闭窗口：
-    setTimeout(() => {
-      Ext.WindowMgr.getActive().close();
-    }, 1000);
-    return document.title;
+    //southPanel.downAnsListGrid.getSelectionModel().selectFirstRow();
+    //// 点击回答问题按钮：
+    //findButtonbyTextContent('回答问题').click();
+    //// 填答案:
+    //document.querySelector('textarea[name="answer"]').value = randText();
+    //// 点击确定按钮:
+    //findButtonbyTextContent('确定').click();
+    //// 关闭窗口：
+    //setTimeout(() => {
+    //  Ext.WindowMgr.getActive().close();
+    //}, 1000);
+
+
+    // return document.title;
     /* eslint-enable */
   })
   .then(title => print(`${title} => 加载完成`))
