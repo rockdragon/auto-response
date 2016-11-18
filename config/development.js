@@ -3,7 +3,7 @@ module.exports = {
   site: {},
   nightmare: {
     openDevTools: {
-      mode: 'detach',
+      mode: 'bottom', // right, bottom, undocked, detach
     },
     show: true,
   },
