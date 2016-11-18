@@ -84,3 +84,4 @@ dist
 logs
 webpack-stats.json
 config/siteInfo.js
+.idea
