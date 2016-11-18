@@ -1,0 +1,67 @@
+{
+  "extends": "eslint-config-airbnb-base",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "ava"
+  ],
+  "rules": {
+    "semi": [2, "never"],
+    "comma-dangle": [2, "always-multiline"],
+    "indent": [2, 2, {
+      "SwitchCase": 1
+    }],
+    "no-alert": 0,
+    "no-console": 0,
+    "no-undef": 1,
+    "id-length": 0,
+    "no-param-reassign": [2, {
+      "props": false
+    }],
+    "new-cap": [2, {
+      "capIsNewExceptions": ["express.Router"]
+    }],
+    "eqeqeq": [2, "smart"],
+    "max-len": 0,
+    "ava/assertion-arguments": "error",
+    "ava/assertion-message": ["off", "always"],
+    "ava/max-asserts": ["off", 5],
+    "ava/no-cb-test": "off",
+    "ava/no-identical-title": "error",
+    "ava/no-ignored-test-files": "error",
+    "ava/no-invalid-end": "error",
+    "ava/no-only-test": "error",
+    "ava/no-skip-assert": "error",
+    "ava/no-skip-test": "error",
+    "ava/no-statement-after-end": "error",
+    "ava/no-todo-test": "warn",
+    "ava/no-unknown-modifiers": "error",
+    "ava/prefer-power-assert": "off",
+    "ava/test-ended": "error",
+    "ava/test-title": ["error", "if-multiple"],
+    "ava/use-t-well": "error",
+    "ava/use-t": "error",
+    "ava/use-test": "error",
+    "ava/use-true-false": "error"
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "print": true,
+    "error": true,
+    "env": true,
+    "fs": true,
+    "path": true,
+    "R": true,
+    "Promise": true,
+    "debug": true,
+    "debugInfo": true,
+    "baseDir": true,
+    "config": true,
+  }
+}
