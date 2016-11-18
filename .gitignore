@@ -83,3 +83,4 @@ node_modules
 dist
 logs
 webpack-stats.json
+config/siteInfo.js

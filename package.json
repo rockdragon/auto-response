@@ -27,6 +27,7 @@
     "babel-plugin-transform-es2015-unicode-regex": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.5.2",
+    "debug": "^2.3.2",
     "nightmare": "^2.8.1",
     "nodemon": "^1.11.0"
   },

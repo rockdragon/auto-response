@@ -8,8 +8,6 @@ global.debug = require('debug')
 global.debugInfo = debug('app')
 
 global.config = require(`./${env}`)
+global.config.site = require('./siteInfo').site
 debugInfo('Current ENV is: ', config.env)
-
-
-
 
