@@ -3,5 +3,6 @@ module.exports = {
   site: {},
   nightmare: {
     show: false,
+    dock: false,
   },
 }

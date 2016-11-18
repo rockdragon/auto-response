@@ -6,5 +6,6 @@ module.exports = {
       mode: 'bottom', // right, bottom, undocked, detach
     },
     show: true,
+    dock: true,
   },
 }
