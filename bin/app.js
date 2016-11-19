@@ -62,7 +62,7 @@ nightmare
     }
 
     setInterval(handle, 2000);
-
+    /* eslint-enable */
   })
   .evaluate(() => document.title)
   .then(title => printWithTime(`${title} => 加载完成`))

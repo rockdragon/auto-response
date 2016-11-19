@@ -7,5 +7,7 @@ module.exports = {
     },
     show: true,
     dock: true,
+    waitTimeout: 60000,
+    executionTimeout: 86400000,
   },
 }
