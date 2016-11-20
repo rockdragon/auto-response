@@ -77,5 +77,10 @@ nightmare
   .then(title => printWithTime(`${title} => 加载完成`))
   .catch(err => error(err))
 
+process.on('uncaughtException', function (err) {
+  printWithTime(err)
+  process.exit(1)
+})
+
 
 
