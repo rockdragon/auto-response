@@ -5,6 +5,12 @@ const nightmare = new Nightmare(config.nightmare)
 
 nightmare
   .on('page', pageEventHandler)
+  .on('ipc-message', (e) => {
+    if(e.channel === 'error:syntax') {
+      printWithTime('error:syntax', e.args[0])
+      process.exit(1)
+    }
+  })
   .on('will-navigate', willNavigateHandler)
   .goto(config.site.url)
   .viewport(1024, 768)
@@ -66,6 +72,14 @@ nightmare
 
     setInterval(handle, 2000);
 
+    window.addEventListener('error', function(err) {
+      console.dir(err)
+      console.dir(ipc)
+      if (err.message.indexOf('Uncaught SyntaxError') > -1) {
+        ipc.sendToHost('error:syntax', err.message);
+      }
+    })
+
     window.onbeforeunload = function(e) {
       var dialogText = '您别走';
       e.returnValue = dialogText;
@@ -77,8 +91,6 @@ nightmare
   .then(title => printWithTime(`${title} => 加载完成`))
   .catch(err => errorHandler(err))
 
-process.on('uncaughtException', () => {
-  process.exit(1)
-})
+process.on('uncaughtException', errorHandler)
 
 
