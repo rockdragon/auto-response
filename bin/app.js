@@ -67,7 +67,7 @@ nightmare
     setInterval(handle, 2000);
 
     window.onbeforeunload = function(e) {
-      var dialogText = '您正在编辑的 issue 还没有提交，确定要离开？';
+      var dialogText = '您别走';
       e.returnValue = dialogText;
       return dialogText;
     };
