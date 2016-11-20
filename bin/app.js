@@ -76,6 +76,7 @@ nightmare
       console.dir(err)
       console.dir(ipc)
       if (err.message.indexOf('Uncaught SyntaxError') > -1) {
+        console.error('sending custom-event')
         ipc.sendToHost('custom-event', err.message);
       }
     })
