@@ -7,7 +7,7 @@ global.path = require('path')
 global.debug = require('debug')
 global.moment = require('moment')
 global.debugInfo = debug('app')
-global.printWithTime = (text) => print(moment().format('YYYY-MM-DD HH:mm:ss'), text)
+global.printWithTime = (...args) => print(moment().format('YYYY-MM-DD HH:mm:ss'), args)
 
 global.config = require(`./${env}`)
 try {

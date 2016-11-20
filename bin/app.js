@@ -1,5 +1,5 @@
 import Nightmare from 'nightmare'
-import { pageEventHandler, willNavigateHandler } from './eventHandler'
+import { pageEventHandler, willNavigateHandler, errorHandler } from './eventHandler'
 
 const nightmare = new Nightmare(config.nightmare)
 
@@ -75,12 +75,10 @@ nightmare
   })
   .evaluate(() => document.title)
   .then(title => printWithTime(`${title} => 加载完成`))
-  .catch(err => error(err))
+  .catch(err => errorHandler(err))
 
-process.on('uncaughtException', function (err) {
-  printWithTime(err)
+process.on('uncaughtException', () => {
   process.exit(1)
 })
-
 
 

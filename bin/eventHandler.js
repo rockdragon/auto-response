@@ -13,3 +13,8 @@ export function pageEventHandler (type, ...args){
 export function willNavigateHandler(event, url) {
   print('will navigate:', event, url)
 }
+
+export function errorHandler(err) {
+  printWithTime('uncaughtException', err)
+  process.exit(1)
+}
