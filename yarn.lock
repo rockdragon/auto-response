@@ -2067,6 +2067,12 @@ nightmare:
     sliced "1.0.1"
     split2 "^2.0.1"
 
+nightmare-custom-event:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/nightmare-custom-event/-/nightmare-custom-event-0.2.0.tgz#0f8beda8a6ff211753b385dccf4104eeeadec683"
+  dependencies:
+    debug "^2.2.0"
+
 node-pre-gyp@^0.6.29:
   version "0.6.31"
   resolved "https://registry.npmjs.org/node-pre-gyp/-/node-pre-gyp-0.6.31.tgz#d8a00ddaa301a940615dbcc8caad4024d58f6017"

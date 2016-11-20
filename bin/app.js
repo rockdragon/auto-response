@@ -1,15 +1,15 @@
 import Nightmare from 'nightmare'
+require('nightmare-custom-event')(Nightmare)
 import { pageEventHandler, willNavigateHandler, errorHandler } from './eventHandler'
 
 const nightmare = new Nightmare(config.nightmare)
 
 nightmare
   .on('page', pageEventHandler)
-  .on('ipc-message', (e) => {
-    if(e.channel === 'error:syntax') {
-      printWithTime('error:syntax', e.args[0])
-      process.exit(1)
-    }
+  .bind('custom-event')
+  .on('custom-event', (msg) => {
+    printWithTime('custom-event', msg)
+    process.exit(1)
   })
   .on('will-navigate', willNavigateHandler)
   .goto(config.site.url)
@@ -76,7 +76,7 @@ nightmare
       console.dir(err)
       console.dir(ipc)
       if (err.message.indexOf('Uncaught SyntaxError') > -1) {
-        ipc.sendToHost('error:syntax', err.message);
+        ipc.sendToHost('custom-event', err.message);
       }
     })
 
