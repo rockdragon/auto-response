@@ -1,10 +1,11 @@
 import Nightmare from 'nightmare'
-import { pageEventHandler } from './eventHandler'
+import { pageEventHandler, willNavigateHandler } from './eventHandler'
 
 const nightmare = new Nightmare(config.nightmare)
 
 nightmare
   .on('page', pageEventHandler)
+  .on('will-navigate', willNavigateHandler)
   .goto(config.site.url)
   .viewport(1024, 768)
   .cookies.clearAll()
@@ -64,6 +65,12 @@ nightmare
     }
 
     setInterval(handle, 2000);
+
+    window.onbeforeunload = function(e) {
+      var dialogText = '您正在编辑的 issue 还没有提交，确定要离开？';
+      e.returnValue = dialogText;
+      return dialogText;
+    };
     /* eslint-enable */
   })
   .evaluate(() => document.title)

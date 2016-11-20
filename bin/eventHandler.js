@@ -9,3 +9,7 @@ export function pageEventHandler (type, ...args){
     print('confirm', args)
   }
 }
+
+export function willNavigateHandler(event, url) {
+  print('will navigate:', event, url)
+}
