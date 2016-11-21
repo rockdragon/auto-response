@@ -6,13 +6,12 @@ const nightmare = new Nightmare(config.nightmare)
 
 nightmare
   .on('page', pageEventHandler)
-  .bind('custom-event')
-  .on('custom-event', (msg) => {
-    printWithTime('custom-event', msg)
-    process.exit(1)
-  })
   .on('will-navigate', willNavigateHandler)
   .goto(config.site.url)
+  .on('custom-event',  (...err) => {
+    errorHandler(nightmare, err)
+  })
+  .bind('custom-event')
   .viewport(1024, 768)
   .cookies.clearAll()
   .type('#username', config.site.user)
@@ -83,21 +82,23 @@ nightmare
       console.dir(ipc)
       if (err.message.indexOf('Uncaught SyntaxError') > -1) {
         console.error('sending custom-event')
-        ipc.sendToHost('custom-event', err.message);
+        ipc.send('custom-event', err.message);
       }
     })
 
-    window.onbeforeunload = function(e) {
-      var dialogText = '您别走';
-      e.returnValue = dialogText;
-      return dialogText;
-    };
+    //window.onbeforeunload = function(e) {
+    //  var dialogText = '您别走';
+    //  e.returnValue = dialogText;
+    //  return dialogText;
+    //};
     /* eslint-enable */
   })
   .evaluate(() => document.title)
   .then(title => printWithTime(`${title} => 加载完成`))
-  .catch(err => errorHandler(err))
+  .catch(err => errorHandler(nightmare, err))
 
-process.on('uncaughtException', errorHandler)
+process.on('uncaughtException', (...err) => {
+  errorHandler(nightmare, err)
+})
 
 

@@ -14,7 +14,10 @@ export function willNavigateHandler(event, url) {
   print('will navigate:', event, url)
 }
 
-export function errorHandler(err) {
-  printWithTime('uncaughtException', err)
-  process.exit(1)
+export function errorHandler(nightmare, ...err) {
+  printWithTime('fatal', err)
+  nightmare.unbind('custom-event')
+  nightmare.end().then(() => {
+    process.exit(1)
+  })
 }
