@@ -17,7 +17,7 @@ export function willNavigateHandler(event, url) {
 export function errorHandler(nightmare, ...err) {
   printWithTime('fatal', err)
   nightmare.unbind('custom-event')
-  nightmare.end().then(() => {
+  nightmare.halt('Nightmare Halted', () => {
     process.exit(1)
   })
 }
