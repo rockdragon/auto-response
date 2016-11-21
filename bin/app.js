@@ -43,11 +43,15 @@ nightmare
           return buttons[i];
       }
     }
-    function randText() {
-      return Math.random().toString(36).substr(2);
-    }
     function logWithTime(text) {
       console.log(new Date().Format("yyyy-MM-dd HH:mm:ss"), text);
+    }
+    function getAnswer(panel) {
+      const datas = panel.datas['downAns']
+      if (datas && datas.length && datas[0].recordContent) {
+        return datas[0].recordContent
+      }
+      return '000'
     }
     logWithTime('处理开始');
     var southPanel = view.findById('southPanel');
@@ -61,7 +65,8 @@ nightmare
         // 点击回答问题按钮：
         findButtonbyTextContent('回答问题').click();
         // 填答案:
-        var answer = randText();
+        var answer = getAnswer(southPanel)
+        logWithTime('回答：' + southPanel)
         document.querySelector('textarea[name="answer"]').value = answer;
         // 点击确定按钮:
         document.querySelector('#downAnsWindow div.x-tool-close').click()
