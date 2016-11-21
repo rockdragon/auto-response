@@ -48,6 +48,7 @@ nightmare
     }
     function getAnswer(panel) {
       const datas = panel.datas['downAns']
+      logWithTime('datas:', datas)
       if (datas && datas.length && datas[0].recordContent) {
         return datas[0].recordContent.split(/[：:]/)[1]
       }
@@ -66,7 +67,7 @@ nightmare
         findButtonbyTextContent('回答问题').click();
         // 填答案:
         var answer = getAnswer(southPanel)
-        logWithTime('回答：' + southPanel)
+        logWithTime('回答：' + answer)
         document.querySelector('textarea[name="answer"]').value = answer;
         // 点击确定按钮:
         document.querySelector('#downAnsWindow div.x-tool-close').click()
