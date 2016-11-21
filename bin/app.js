@@ -49,7 +49,7 @@ nightmare
     function getAnswer(panel) {
       const datas = panel.datas['downAns']
       if (datas && datas.length && datas[0].recordContent) {
-        return datas[0].recordContent
+        return datas[0].recordContent.split(/[：:]/)[1]
       }
       return '000'
     }
