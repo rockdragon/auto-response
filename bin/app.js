@@ -64,19 +64,20 @@ nightmare
     function handle() {
       var win = document.querySelector('#downAnsWindow');
       if (win && win.style.visibility === 'visible') {
-        logWithTime('应答对话框出现')
-        // 选择问题：
-        southPanel.downAnsListGrid.getSelectionModel().selectFirstRow();
-        // 点击回答问题按钮：
-        findButtonbyTextContent('回答问题').click();
-        // 填答案:
-        var answer = getAnswer(southPanel)
-        logWithTime('回答：' + answer)
-        document.querySelector('textarea[name="answer"]').value = answer;
-        // 点击确定按钮:
-        document.querySelector('#downAnsWindow div.x-tool-close').click()
-        findButtonbyTextContent('确定').click();
-
+        setTimeout(() => {
+          logWithTime('应答对话框出现')
+          // 选择问题：
+          southPanel.downAnsListGrid.getSelectionModel().selectFirstRow();
+          // 点击回答问题按钮：
+          findButtonbyTextContent('回答问题').click();
+          // 填答案:
+          var answer = getAnswer(southPanel)
+          logWithTime('回答：' + answer)
+          document.querySelector('textarea[name="answer"]').value = answer;
+          // 点击确定按钮:
+          document.querySelector('#downAnsWindow div.x-tool-close').click()
+          findButtonbyTextContent('确定').click();
+        }, 1000 * 30);
       }
     }
 
