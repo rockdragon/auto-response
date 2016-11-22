@@ -6,7 +6,12 @@ const nightmare = new Nightmare(config.nightmare)
 
 nightmare
   .on('page', pageEventHandler)
-  .on('will-navigate', willNavigateHandler)
+  .on('will-navigate', (event, url) => {
+    willNavigateHandler(event, url)
+    if (url.includes('index.html')) {
+      errorHandler(nightmare, 'redirection')
+    }
+  })
   .goto(config.site.url)
   .on('custom-event',  (...err) => {
     errorHandler(nightmare, err)
