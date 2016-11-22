@@ -58,6 +58,11 @@ nightmare
       }
       return '000'
     }
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
     logWithTime('处理开始');
     var southPanel = view.findById('southPanel');
 
@@ -77,7 +82,7 @@ nightmare
           // 点击确定按钮:
           document.querySelector('#downAnsWindow div.x-tool-close').click()
           findButtonbyTextContent('确定').click();
-        }, 1000 * 30);
+        }, 1000 * getRandomInt(1, 5));
       }
     }
 
