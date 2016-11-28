@@ -76,7 +76,7 @@ nightmare
           // 点击回答问题按钮：
           findButtonbyTextContent('回答问题').click();
           // 填答案:
-          var answer = getAnswer(southPanel) + 'w'
+          var answer = getAnswer(southPanel)
           logWithTime('回答：' + answer)
           document.querySelector('textarea[name="answer"]').value = answer;
           // 点击确定按钮:
